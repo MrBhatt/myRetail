@@ -11,8 +11,13 @@ public class Product {
     public String getName() {return name;}
     public Price getCurrentPrice() {return currentPrice;}
 
-    public void setId() {this.id = id;}
-    public void setName() {this.name = name;}
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public void setCurrentPrice(Price currentPrice) {this.currentPrice = currentPrice;}
 
 }

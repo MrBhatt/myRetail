@@ -1,22 +1,13 @@
 package com.target.myretail.models.redsky;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
+
+@Data
 public class RedSkyItem {
+
     private long tcin;
+
+    @JsonProperty("product_description")
     private RedSkyProductDescription productDescription;
-
-    public long getTcin() {
-        return tcin;
-    }
-
-    public void setTcin(long tcin) {
-        this.tcin = tcin;
-    }
-
-    public RedSkyProductDescription getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(RedSkyProductDescription productDescription) {
-        this.productDescription = productDescription;
-    }
 }

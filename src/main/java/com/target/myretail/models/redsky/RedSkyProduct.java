@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class RedSkyProductDescription {
+public class RedSkyProduct {
 
-    @JsonProperty("title")
-    private String title;
+    @JsonProperty("item")
+    private RedSkyItem redSkyItem;
 }
