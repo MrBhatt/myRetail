@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class Price {
-    private double value;
-    @JsonProperty("currency_code")
-    private String currencyCode;
+public class ProductPriceDetail {
+    @JsonProperty(value = "product_id")
+    private long id;
+    private Price price;
 }

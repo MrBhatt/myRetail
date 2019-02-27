@@ -1,23 +1,12 @@
 package com.target.myretail.models;
 
-public class Product {
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
-    /** product id **/
+@Data
+public class Product {
     private long id;
     private String name;
+    @JsonProperty("current_price")
     private Price currentPrice;
-
-    public long getId() {return id;}
-    public String getName() {return name;}
-    public Price getCurrentPrice() {return currentPrice;}
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setCurrentPrice(Price currentPrice) {this.currentPrice = currentPrice;}
-
 }

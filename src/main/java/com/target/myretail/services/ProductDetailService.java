@@ -1,8 +1,10 @@
 package com.target.myretail.services;
 
+import com.target.myretail.integrations.PricingService;
 import com.target.myretail.integrations.RedSkyService;
 import com.target.myretail.models.Price;
 import com.target.myretail.models.Product;
+import com.target.myretail.models.ProductPriceDetail;
 import com.target.myretail.models.redsky.RedSkyProduct;
 import com.target.myretail.models.redsky.RedSkyProductDetails;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ public class ProductDetailService {
 
     @Autowired
     private RedSkyService redSkyService;
+
+    @Autowired
+    private PricingService pricingService;
 
     public Product getProductDetails(long id) {
 
@@ -26,9 +31,8 @@ public class ProductDetailService {
         String title = redSkyProduct.getRedSkyItem().getProductDescription().getTitle();
 
         // # step 2: call the pricing service to fetch product price
-        Price price = new Price();
-        price.setCurrencyCode("USD");
-        price.setValue(19.24);
+        ProductPriceDetail productPriceDetail = pricingService.getProductPricing(id);
+        Price price = productPriceDetail.getPrice();
 
         // populate product instance with relevant details
         product.setId(id);
