@@ -1,5 +1,6 @@
 package com.target.myretail.services;
 
+import com.target.myretail.exceptions.ServiceNotAvailableException;
 import com.target.myretail.integrations.PricingService;
 import com.target.myretail.integrations.RedSkyService;
 import com.target.myretail.models.Price;
@@ -69,7 +70,7 @@ public class ProductDetailServiceImplTest {
         given(this.redSkyService.getProductDetails(VALID_ID)).willReturn(redSkyProductDetails);
         given(this.pricingService.getProductPricing(VALID_ID)).willReturn(productPriceDetail);
 
-        Product productDetails = productDetailService.getProductDetails(138604281);
+        Product productDetails = productDetailService.getProductDetails(VALID_ID);
 
         Product productToCompare = new Product();
         productToCompare.setId(VALID_ID);
@@ -83,8 +84,28 @@ public class ProductDetailServiceImplTest {
     }
 
     @Test
-    public void getProductDetails_withInvalidId_returns404Error() {
-        HttpClientErrorException httpClientErrorException = HttpClientErrorException.create(HttpStatus.NOT_FOUND, "Resource Not Found", null, null, null);
+    public void getProductDetails_withValidIdButIncompleteResponse_throwsServiceNotAvailableEx() {
+        RedSkyItem redSkyItem = new RedSkyItem();
+        redSkyItem.setTcin(VALID_ID);
+
+        RedSkyProduct redSkyProduct = new RedSkyProduct();
+        redSkyProduct.setRedSkyItem(redSkyItem);
+
+        RedSkyProductDetails redSkyProductDetails = new RedSkyProductDetails();
+        redSkyProductDetails.setRedSkyProduct(redSkyProduct);
+
+        given(this.redSkyService.getProductDetails(VALID_ID)).willReturn(redSkyProductDetails);
+        given(this.pricingService.getProductPricing(VALID_ID)).willReturn(productPriceDetail);
+
+        assertThatExceptionOfType(ServiceNotAvailableException.class).isThrownBy(() -> {
+            productDetailService.getProductDetails(VALID_ID);
+        });
+    }
+
+    @Test
+    public void getProductDetails_withInvalidId_throwsHttpClientErrorException() {
+        HttpClientErrorException httpClientErrorException = HttpClientErrorException.create(HttpStatus.NOT_FOUND,
+                "Resource Not Found", null, null, null);
         given(this.redSkyService.getProductDetails(INVALID_ID)).willThrow(httpClientErrorException);
         given(this.pricingService.getProductPricing(INVALID_ID)).willThrow(httpClientErrorException);
 
