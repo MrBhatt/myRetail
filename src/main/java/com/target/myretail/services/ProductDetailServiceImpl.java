@@ -40,6 +40,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         validateRedSkyResponse(redSkyProduct);
 
         String title = redSkyProduct.getRedSkyItem().getProductDescription().getTitle();
+        log.info("redsky response for product id {}: {}", id, redSkyProduct);
 
         // # step 2: call the pricing service to fetch product price
         log.info("Getting pricing details for product id: {} from pricing API", id);
