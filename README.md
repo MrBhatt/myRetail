@@ -46,6 +46,9 @@ To bring up the myRetail service, do one of the following:
 
 myRetail is a RESTful service and can be accessed using any REST client (ex: POSTMAN)
 
+Note: except the health check endpoint, all other endpoints require basic authentication (Authorization header).
+Use the following credentials to access the service: user: `admin` and password: `password`
+
 ### Available endpoints
 *  health check (is the service up?)
 ```
