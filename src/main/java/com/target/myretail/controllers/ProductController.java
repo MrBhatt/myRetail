@@ -1,6 +1,6 @@
 package com.target.myretail.controllers;
 
-import com.target.myretail.models.Product;
+import com.target.myretail.models.dto.Product;
 import com.target.myretail.services.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

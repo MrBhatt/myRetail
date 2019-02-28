@@ -1,6 +1,6 @@
 package com.target.myretail.services;
 
-import com.target.myretail.models.Product;
+import com.target.myretail.models.dto.Product;
 
 public interface ProductDetailService {
 

@@ -4,7 +4,7 @@ import com.target.myretail.exceptions.ServiceNotAvailableException;
 import com.target.myretail.integrations.PricingService;
 import com.target.myretail.integrations.RedSkyService;
 import com.target.myretail.models.Price;
-import com.target.myretail.models.Product;
+import com.target.myretail.models.dto.Product;
 import com.target.myretail.models.ProductPriceDetail;
 import com.target.myretail.models.redsky.RedSkyItem;
 import com.target.myretail.models.redsky.RedSkyProduct;

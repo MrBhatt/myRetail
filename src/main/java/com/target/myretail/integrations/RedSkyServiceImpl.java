@@ -2,7 +2,7 @@ package com.target.myretail.integrations;
 
 import com.target.myretail.integrations.utils.CommonUtil;
 import com.target.myretail.integrations.utils.ExceptionHandler;
-import com.target.myretail.models.Product;
+import com.target.myretail.models.dto.Product;
 import com.target.myretail.models.redsky.RedSkyItem;
 import com.target.myretail.models.redsky.RedSkyProduct;
 import com.target.myretail.models.redsky.RedSkyProductDescription;
