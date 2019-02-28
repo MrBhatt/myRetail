@@ -6,6 +6,7 @@ import com.target.myretail.integrations.RedSkyService;
 import com.target.myretail.models.Price;
 import com.target.myretail.models.Product;
 import com.target.myretail.models.ProductPriceDetail;
+import com.target.myretail.models.redsky.RedSkyItem;
 import com.target.myretail.models.redsky.RedSkyProduct;
 import com.target.myretail.models.redsky.RedSkyProductDetails;
 import lombok.extern.slf4j.Slf4j;
@@ -60,7 +61,29 @@ public class ProductDetailServiceImpl implements ProductDetailService {
         return product;
     }
 
+    @Override
+    public Product createNewProduct(Product productPayload) {
+
+        log.info("productpayload: {}", productPayload);
+
+        // create the product in redsky
+        RedSkyProductDetails redSkyServiceProductDetails = redSkyService.createProduct(productPayload);
+
+        // set product pricing against the same product id as it was created in RedSky
+        RedSkyItem redSkyItem = redSkyServiceProductDetails.getRedSkyProduct().getRedSkyItem();
+        ProductPriceDetail productPriceDetail = pricingService.setProductPricing(redSkyItem.getTcin());
+
+        // transform redsky and pricing data in to master Product JSON
+        Product product = new Product();
+        product.setId(redSkyItem.getTcin());
+        product.setName(redSkyItem.getProductDescription().getTitle());
+        product.setCurrentPrice(productPriceDetail.getPrice());
+
+        return product;
+    }
+
     private void validateRedSkyResponse(RedSkyProduct redSkyProduct) {
+
         if (Objects.isNull(redSkyProduct)
                 || Objects.isNull(redSkyProduct.getRedSkyItem())
                 || Objects.isNull(redSkyProduct.getRedSkyItem().getProductDescription())) {
@@ -71,6 +94,7 @@ public class ProductDetailServiceImpl implements ProductDetailService {
     }
 
     private void validatePricingResponse(ProductPriceDetail productPriceDetail) {
+
         if (Objects.isNull(productPriceDetail)
                 || Objects.isNull(productPriceDetail.getPrice())) {
 

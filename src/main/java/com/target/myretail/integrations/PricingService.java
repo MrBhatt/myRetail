@@ -5,4 +5,6 @@ import com.target.myretail.models.ProductPriceDetail;
 public interface PricingService {
 
     ProductPriceDetail getProductPricing(long id);
+
+    ProductPriceDetail setProductPricing(long id);
 }

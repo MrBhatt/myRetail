@@ -5,6 +5,8 @@ import com.target.myretail.services.ProductDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -18,13 +20,7 @@ public class ProductController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public Product setProduct(@RequestBody Product productPayload) {
-        return new Product();
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public Product updateProductById(@RequestBody Product productPayload) {
-
-        return new Product();
+    public Product setProduct(@Valid @RequestBody Product productPayload) {
+        return productDetailService.createNewProduct(productPayload);
     }
 }

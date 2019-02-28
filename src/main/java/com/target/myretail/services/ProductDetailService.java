@@ -5,4 +5,7 @@ import com.target.myretail.models.Product;
 public interface ProductDetailService {
 
     Product getProductDetails(long id);
+
+    Product createNewProduct(Product productPayload);
+
 }
